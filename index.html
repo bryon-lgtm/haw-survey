@@ -4,55 +4,76 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Missions in the Marketplace — Participant Survey</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #faf9f7;
-    --surface: #ffffff;
-    --border: #e4e0da;
-    --text: #1a1917;
-    --muted: #6b6560;
-    --accent: #4a5c4e;
-    --accent-light: #edf0ee;
-    --accent-hover: #3a4a3e;
-    --radio-active: #4a5c4e;
-    --danger: #c0392b;
+    /* HaW Paper mode — private / product / journal */
+    --paper: #F4EFE5;
+    --card: #FBF9F4;
+    --ink: #1B1813;
+    --muted: #6B6258;
+    --forest: #2F4A3F;
+    --forest-hover: #243A31;
+    --forest-tint: rgba(47, 74, 63, 0.07);
+    --gold: #B89260;
+    --terracotta: #B45838;
+    --border: #E3DCCE;
+    --border-strong: #CDC3B0;
+
     --radius: 10px;
-    --font: 'Georgia', 'Times New Roman', serif;
-    --font-ui: system-ui, -apple-system, sans-serif;
+    --font-display: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+    --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+    --ease: cubic-bezier(0.25, 0.1, 0.25, 1.0);
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body {
-    font-family: var(--font);
-    background: var(--bg);
-    color: var(--text);
+    font-family: var(--font-body);
+    font-weight: 400;
+    background: var(--paper);
+    color: var(--ink);
     min-height: 100vh;
     padding: 32px 16px 80px;
+    -webkit-font-smoothing: antialiased;
   }
-  .shell { max-width: 640px; margin: 0 auto; }
+  .shell { max-width: 640px; margin: 0 auto; position: relative; }
+
+  /* Corner registration marks — quiet HaW signature */
+  .reg { position: absolute; top: 2px; width: 20px; height: 20px; opacity: 0.45; pointer-events: none; }
+  .reg.left  { left: -2px;  border-top: 1px solid var(--gold); border-left: 1px solid var(--gold); }
+  .reg.right { right: -2px; border-top: 1px solid var(--gold); border-right: 1px solid var(--gold); }
 
   .header {
     text-align: center;
-    padding: 48px 0 40px;
+    padding: 52px 0 40px;
     border-bottom: 1px solid var(--border);
     margin-bottom: 40px;
   }
   .header-eyebrow {
-    font-family: var(--font-ui);
-    font-size: 11px;
-    letter-spacing: 0.12em;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 16px;
+    color: var(--gold);
+    margin-bottom: 18px;
   }
   .header h1 {
-    font-size: 26px;
-    font-weight: normal;
-    line-height: 1.35;
-    margin-bottom: 12px;
+    font-family: var(--font-display);
+    font-size: clamp(34px, 7vw, 52px);
+    font-weight: 400;
+    line-height: 1.12;
+    letter-spacing: 0.01em;
+    margin-bottom: 14px;
   }
+  .header h1 em { font-style: italic; }
   .header-sub {
-    font-family: var(--font-ui);
-    font-size: 13px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
     color: var(--muted);
   }
 
@@ -66,74 +87,81 @@
   }
   .progress-fill {
     height: 100%;
-    background: var(--accent);
+    background: var(--forest);
     border-radius: 99px;
-    transition: width 0.4s ease;
+    transition: width 0.5s var(--ease);
     width: 0%;
   }
   .progress-label {
-    font-family: var(--font-ui);
-    font-size: 12px;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
     color: var(--muted);
     text-align: right;
   }
 
   .opening {
-    background: var(--accent-light);
-    border-left: 3px solid var(--accent);
+    background: var(--forest-tint);
+    border-left: 2px solid var(--forest);
     border-radius: 0 var(--radius) var(--radius) 0;
-    padding: 20px 24px;
-    margin-bottom: 40px;
-    font-size: 15px;
-    line-height: 1.7;
+    padding: 22px 26px;
+    margin-bottom: 44px;
+    font-size: 15.5px;
+    line-height: 1.75;
+    color: #34302a;
   }
 
   .q-card {
-    background: var(--surface);
+    background: var(--card);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 28px 28px 24px;
+    padding: 30px 30px 26px;
     margin-bottom: 20px;
-    transition: border-color 0.2s;
+    transition: border-color 0.3s var(--ease);
   }
-  .q-card.answered { border-color: #c5cfc7; }
+  .q-card.answered { border-color: var(--border-strong); }
   .q-num {
-    font-family: var(--font-ui);
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.1em;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 10px;
+    color: var(--gold);
+    margin-bottom: 12px;
   }
   .q-text {
-    font-size: 17px;
-    line-height: 1.55;
-    margin-bottom: 20px;
+    font-family: var(--font-display);
+    font-size: 22px;
+    line-height: 1.4;
+    letter-spacing: 0.01em;
+    margin-bottom: 22px;
   }
+  .q-text em { font-style: italic; color: var(--forest); }
   .q-note {
-    font-family: var(--font-ui);
-    font-size: 12px;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
     color: var(--muted);
-    margin-bottom: 16px;
-    font-style: italic;
+    margin-bottom: 18px;
   }
 
   .options { display: flex; flex-direction: column; gap: 10px; }
   .option {
     display: flex;
     align-items: flex-start;
-    gap: 12px;
-    padding: 12px 16px;
+    gap: 13px;
+    padding: 13px 16px;
     border: 1px solid var(--border);
     border-radius: 8px;
     cursor: pointer;
-    transition: border-color 0.15s, background 0.15s;
+    transition: border-color 0.2s var(--ease), background 0.2s var(--ease);
     user-select: none;
     position: relative;
+    background: var(--paper);
   }
-  .option:hover { border-color: var(--accent); background: var(--accent-light); }
-  .option.selected { border-color: var(--radio-active); background: var(--accent-light); }
+  .option:hover { border-color: var(--forest); background: var(--forest-tint); }
+  .option.selected { border-color: var(--forest); background: var(--forest-tint); }
   .option input[type="radio"],
   .option input[type="checkbox"] {
     position: absolute; opacity: 0; width: 0; height: 0;
@@ -141,97 +169,101 @@
 
   .custom-radio {
     width: 18px; height: 18px;
-    border: 2px solid var(--border);
+    border: 1.5px solid var(--border-strong);
     border-radius: 50%;
     flex-shrink: 0;
-    margin-top: 1px;
-    transition: border-color 0.15s;
+    margin-top: 2px;
+    transition: border-color 0.2s var(--ease);
     display: flex; align-items: center; justify-content: center;
   }
-  .option.selected .custom-radio { border-color: var(--radio-active); }
+  .option.selected .custom-radio { border-color: var(--forest); }
   .custom-radio::after {
     content: '';
     width: 8px; height: 8px;
     border-radius: 50%;
-    background: var(--radio-active);
+    background: var(--forest);
     opacity: 0;
-    transition: opacity 0.15s;
+    transition: opacity 0.2s var(--ease);
   }
   .option.selected .custom-radio::after { opacity: 1; }
 
   .custom-checkbox {
     width: 18px; height: 18px;
-    border: 2px solid var(--border);
+    border: 1.5px solid var(--border-strong);
     border-radius: 4px;
     flex-shrink: 0;
-    margin-top: 1px;
-    transition: border-color 0.15s, background 0.15s;
+    margin-top: 2px;
+    transition: border-color 0.2s var(--ease), background 0.2s var(--ease);
     display: flex; align-items: center; justify-content: center;
-    font-size: 11px; color: white;
+    font-size: 11px; color: var(--paper);
   }
-  .option.selected .custom-checkbox { border-color: var(--radio-active); background: var(--radio-active); }
+  .option.selected .custom-checkbox { border-color: var(--forest); background: var(--forest); }
   .custom-checkbox::after { content: '✓'; opacity: 0; font-weight: bold; }
   .option.selected .custom-checkbox::after { opacity: 1; }
 
-  .option-text { font-size: 15px; line-height: 1.5; flex: 1; }
+  .option-text { font-size: 15px; line-height: 1.55; flex: 1; }
 
   .q-textarea {
     width: 100%;
     border: 1px solid var(--border);
     border-radius: 8px;
     padding: 14px 16px;
-    font-family: var(--font);
+    font-family: var(--font-body);
     font-size: 15px;
-    line-height: 1.6;
-    color: var(--text);
-    background: var(--bg);
+    line-height: 1.65;
+    color: var(--ink);
+    background: var(--paper);
     resize: vertical;
-    min-height: 80px;
-    transition: border-color 0.15s;
+    min-height: 84px;
+    transition: border-color 0.2s var(--ease);
     outline: none;
   }
-  .q-textarea:focus { border-color: var(--accent); }
-  .q-textarea::placeholder { color: #b0a89e; }
+  .q-textarea:focus { border-color: var(--forest); }
+  .q-textarea::placeholder { color: #b3aa9d; }
 
   .skip-notice {
     display: none;
-    font-family: var(--font-ui);
-    font-size: 12px;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.03em;
     color: var(--muted);
-    margin-top: 12px;
-    padding: 8px 12px;
-    background: #f5f3f0;
+    margin-top: 14px;
+    padding: 9px 13px;
+    background: var(--forest-tint);
     border-radius: 6px;
+    line-height: 1.5;
   }
 
   .submit-section {
-    margin-top: 40px;
-    padding-top: 32px;
+    margin-top: 44px;
+    padding-top: 34px;
     border-top: 1px solid var(--border);
   }
   .submit-note {
-    font-family: var(--font-ui);
-    font-size: 13px;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
     color: var(--muted);
-    margin-bottom: 20px;
-    line-height: 1.6;
+    margin-bottom: 22px;
+    line-height: 1.7;
   }
   .btn-submit {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    background: var(--accent);
-    color: white;
+    gap: 9px;
+    background: var(--forest);
+    color: var(--paper);
     border: none;
     border-radius: 8px;
-    padding: 14px 32px;
-    font-family: var(--font-ui);
+    padding: 15px 34px;
+    font-family: var(--font-body);
     font-size: 15px;
     font-weight: 500;
+    letter-spacing: 0.01em;
     cursor: pointer;
-    transition: background 0.15s, transform 0.1s;
+    transition: background 0.2s var(--ease), transform 0.1s var(--ease);
   }
-  .btn-submit:hover { background: var(--accent-hover); }
+  .btn-submit:hover { background: var(--forest-hover); }
   .btn-submit:active { transform: scale(0.98); }
   .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
 
@@ -240,20 +272,28 @@
 
   .thankyou {
     text-align: center;
-    padding: 64px 24px;
+    padding: 72px 24px;
   }
   .thankyou-icon {
-    width: 56px; height: 56px;
-    background: var(--accent-light);
+    width: 60px; height: 60px;
+    background: var(--forest-tint);
+    border: 1px solid var(--border);
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    margin: 0 auto 24px;
+    margin: 0 auto 28px;
     font-size: 24px;
+    color: var(--gold);
   }
-  .thankyou h2 { font-size: 24px; font-weight: normal; margin-bottom: 16px; }
+  .thankyou h2 {
+    font-family: var(--font-display);
+    font-size: 38px;
+    font-weight: 400;
+    font-style: italic;
+    margin-bottom: 18px;
+  }
   .thankyou p {
     font-size: 16px;
-    line-height: 1.7;
+    line-height: 1.75;
     color: var(--muted);
     max-width: 420px;
     margin: 0 auto;
@@ -261,40 +301,59 @@
 
   .error-msg {
     display: none;
-    background: #fdf0ef;
-    border: 1px solid #e8b4b0;
+    background: rgba(180, 88, 56, 0.08);
+    border: 1px solid rgba(180, 88, 56, 0.4);
     border-radius: 8px;
     padding: 14px 16px;
-    font-family: var(--font-ui);
-    font-size: 13px;
-    color: var(--danger);
+    font-family: var(--font-body);
+    font-size: 13.5px;
+    color: var(--terracotta);
     margin-top: 16px;
-    line-height: 1.5;
+    line-height: 1.55;
   }
   .error-msg.visible { display: block; }
 
   .spinner {
     width: 16px; height: 16px;
-    border: 2px solid rgba(255,255,255,0.4);
-    border-top-color: white;
+    border: 2px solid rgba(244, 239, 229, 0.4);
+    border-top-color: var(--paper);
     border-radius: 50%;
     animation: spin 0.7s linear infinite;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
 
+  .footer-mark {
+    text-align: center;
+    margin-top: 48px;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.75;
+  }
+
   @media (max-width: 480px) {
-    .q-card { padding: 20px 18px; }
-    .header h1 { font-size: 22px; }
-    .q-text { font-size: 16px; }
+    .q-card { padding: 22px 18px; }
+    .header h1 { font-size: 26px; }
+    .q-text { font-size: 19px; }
+    .reg { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
   }
 </style>
 </head>
 <body>
 <div class="shell">
 
+  <span class="reg left" aria-hidden="true"></span>
+  <span class="reg right" aria-hidden="true"></span>
+
   <div class="header">
     <div class="header-eyebrow">Hand at Work</div>
-    <h1>Missions in the Marketplace</h1>
+    <h1>Missions in the <em>Marketplace</em></h1>
     <div class="header-sub">Participant Survey &nbsp;·&nbsp; Anonymous &nbsp;·&nbsp; ~5 minutes</div>
   </div>
 
@@ -600,7 +659,7 @@
       <!-- Q11 (was Q12) — multi-select -->
       <div class="q-card" id="q12">
         <div class="q-num">Question 11</div>
-        <div class="q-text">What would you welcome next? <em style="font-size:13px; color: var(--muted);">(Choose any.)</em></div>
+        <div class="q-text">What would you welcome next? <em style="font-size:14px; color: var(--muted);">(Choose any.)</em></div>
         <div class="options" data-name="q12" data-multi="true">
           <label class="option" data-value="Receiving my Hand at Work Portrait (Early Access)">
             <input type="checkbox" name="q12" value="Receiving my Hand at Work Portrait (Early Access)">
@@ -650,7 +709,7 @@
           <span id="submit-label">Submit my responses</span>
         </button>
         <div class="error-msg" id="error-msg">
-          Something didn't go through. Please try again, or let the facilitator know if this keeps happening.
+          Something went quiet — please try again, or let the facilitator know if this keeps happening.
         </div>
       </div>
 
@@ -664,6 +723,8 @@
       <p>Your honesty here is held the same way it was in the room.</p>
     </div>
   </div>
+
+  <div class="footer-mark">Hand at Work</div>
 
 </div>
 
