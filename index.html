@@ -1,152 +1,832 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.4">
-  <style type="text/css">
-    body {background-color: #f9f8f5}
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; font: 11.0px 'Helvetica Neue'; color: #58524d; -webkit-text-stroke: #58524d}
-    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; font: 13.0px 'Helvetica Neue'; color: #58524d; -webkit-text-stroke: #58524d}
-    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Georgia; color: #141312; -webkit-text-stroke: #141312; background-color: #3a4a3d; min-height: 14.0px}
-    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: right; font: 12.0px 'Helvetica Neue'; color: #58524d; -webkit-text-stroke: #58524d}
-    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 15.0px Georgia; color: #141312; -webkit-text-stroke: #141312; background-color: #e9ecea}
-    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px 'Helvetica Neue'; color: #58524d; -webkit-text-stroke: #58524d}
-    p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 17.0px Georgia; color: #141312; -webkit-text-stroke: #141312}
-    p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px 'Helvetica Neue'; -webkit-text-stroke: #000000; min-height: 13.0px}
-    p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 15.0px Georgia; color: #141312; -webkit-text-stroke: #141312}
-    p.p11 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px 'Helvetica Neue'; color: #58524d; -webkit-text-stroke: #58524d}
-    p.p12 {margin: 0.0px 0.0px 20.0px 0.0px; font: 13.0px 'Helvetica Neue'; color: #58524d; -webkit-text-stroke: #58524d}
-    p.p13 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; font: 15.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff}
-    span.s1 {font-kerning: none}
-    span.s2 {font-kerning: none; background-color: #ffffff}
-    span.s3 {font: 13.0px Georgia; font-kerning: none; color: #58524d; background-color: #ffffff; -webkit-text-stroke: 0px #58524d}
-    span.s4 {font-kerning: none; background-color: #3a4a3d}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Missions in the Marketplace — Participant Survey</title>
+<style>
+  :root {
+    --bg: #faf9f7;
+    --surface: #ffffff;
+    --border: #e4e0da;
+    --text: #1a1917;
+    --muted: #6b6560;
+    --accent: #4a5c4e;
+    --accent-light: #edf0ee;
+    --accent-hover: #3a4a3e;
+    --radio-active: #4a5c4e;
+    --danger: #c0392b;
+    --radius: 10px;
+    --font: 'Georgia', 'Times New Roman', serif;
+    --font-ui: system-ui, -apple-system, sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 32px 16px 80px;
+  }
+  .shell { max-width: 640px; margin: 0 auto; }
+
+  .header {
+    text-align: center;
+    padding: 48px 0 40px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 40px;
+  }
+  .header-eyebrow {
+    font-family: var(--font-ui);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  .header h1 {
+    font-size: 26px;
+    font-weight: normal;
+    line-height: 1.35;
+    margin-bottom: 12px;
+  }
+  .header-sub {
+    font-family: var(--font-ui);
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .progress-wrap { margin-bottom: 36px; }
+  .progress-bar {
+    height: 3px;
+    background: var(--border);
+    border-radius: 99px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 99px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+  .progress-label {
+    font-family: var(--font-ui);
+    font-size: 12px;
+    color: var(--muted);
+    text-align: right;
+  }
+
+  .opening {
+    background: var(--accent-light);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 20px 24px;
+    margin-bottom: 40px;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .q-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 28px 24px;
+    margin-bottom: 20px;
+    transition: border-color 0.2s;
+  }
+  .q-card.answered { border-color: #c5cfc7; }
+  .q-num {
+    font-family: var(--font-ui);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .q-text {
+    font-size: 17px;
+    line-height: 1.55;
+    margin-bottom: 20px;
+  }
+  .q-note {
+    font-family: var(--font-ui);
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 16px;
+    font-style: italic;
+  }
+
+  .options { display: flex; flex-direction: column; gap: 10px; }
+  .option {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    user-select: none;
+    position: relative;
+  }
+  .option:hover { border-color: var(--accent); background: var(--accent-light); }
+  .option.selected { border-color: var(--radio-active); background: var(--accent-light); }
+  .option input[type="radio"],
+  .option input[type="checkbox"] {
+    position: absolute; opacity: 0; width: 0; height: 0;
+  }
+
+  .custom-radio {
+    width: 18px; height: 18px;
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 1px;
+    transition: border-color 0.15s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .option.selected .custom-radio { border-color: var(--radio-active); }
+  .custom-radio::after {
+    content: '';
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--radio-active);
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+  .option.selected .custom-radio::after { opacity: 1; }
+
+  .custom-checkbox {
+    width: 18px; height: 18px;
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    transition: border-color 0.15s, background 0.15s;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; color: white;
+  }
+  .option.selected .custom-checkbox { border-color: var(--radio-active); background: var(--radio-active); }
+  .custom-checkbox::after { content: '✓'; opacity: 0; font-weight: bold; }
+  .option.selected .custom-checkbox::after { opacity: 1; }
+
+  .option-text { font-size: 15px; line-height: 1.5; flex: 1; }
+
+  .q-textarea {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-family: var(--font);
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text);
+    background: var(--bg);
+    resize: vertical;
+    min-height: 80px;
+    transition: border-color 0.15s;
+    outline: none;
+  }
+  .q-textarea:focus { border-color: var(--accent); }
+  .q-textarea::placeholder { color: #b0a89e; }
+
+  .skip-notice {
+    display: none;
+    font-family: var(--font-ui);
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: #f5f3f0;
+    border-radius: 6px;
+  }
+
+  .submit-section {
+    margin-top: 40px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+  .submit-note {
+    font-family: var(--font-ui);
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+  .btn-submit {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 14px 32px;
+    font-family: var(--font-ui);
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+  }
+  .btn-submit:hover { background: var(--accent-hover); }
+  .btn-submit:active { transform: scale(0.98); }
+  .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .state { display: none; }
+  .state.active { display: block; }
+
+  .thankyou {
+    text-align: center;
+    padding: 64px 24px;
+  }
+  .thankyou-icon {
+    width: 56px; height: 56px;
+    background: var(--accent-light);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 24px;
+    font-size: 24px;
+  }
+  .thankyou h2 { font-size: 24px; font-weight: normal; margin-bottom: 16px; }
+  .thankyou p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--muted);
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  .error-msg {
+    display: none;
+    background: #fdf0ef;
+    border: 1px solid #e8b4b0;
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-family: var(--font-ui);
+    font-size: 13px;
+    color: var(--danger);
+    margin-top: 16px;
+    line-height: 1.5;
+  }
+  .error-msg.visible { display: block; }
+
+  .spinner {
+    width: 16px; height: 16px;
+    border: 2px solid rgba(255,255,255,0.4);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  @media (max-width: 480px) {
+    .q-card { padding: 20px 18px; }
+    .header h1 { font-size: 22px; }
+    .q-text { font-size: 16px; }
+  }
+</style>
 </head>
 <body>
-<p class="p1"><span class="s1">HAND AT WORK</span></p>
-<h1 style="margin: 0.0px 0.0px 12.0px 0.0px; text-align: center; font: 26.0px Georgia; color: #141312; -webkit-text-stroke: #141312"><span class="s1">Missions in the Marketplace</span></h1>
-<p class="p3"><span class="s1">Participant Survey  ·  Anonymous  ·  ~5 minutes</span></p>
-<p class="p4"><span class="s1"></span><br></p>
-<p class="p5"><span class="s1">Question 1 of 14</span></p>
-<p class="p6"><span class="s1">Thank you for walking these sessions with us. Twelve quick questions — about five minutes. Nothing here asks what you wrote in the silences, and nothing is shared with your name attached. Every question can be passed.</span></p>
-<p class="p7"><span class="s2">QUESTION 1</span></p>
-<p class="p8"><span class="s2">Which sessions were you part of?</span></p>
-<p class="p9"><span class="s1"></span><br></p>
-<p class="p10"><span class="s2">Session 1 only</span></p>
-<p class="p9"><span class="s1"></span><br></p>
-<p class="p10"><span class="s2">Session 2 only</span></p>
-<p class="p9"><span class="s1"></span><br></p>
-<p class="p10"><span class="s2">Both sessions</span></p>
-<p class="p7"><span class="s2">QUESTION 2</span></p>
-<p class="p8"><span class="s2">Which line comes closest to the heart of what these sessions taught about success and hardship?</span></p>
-<p class="p9"><span class="s1"></span><br></p>
-<p class="p10"><span class="s2">Success is a reward for faithfulness, and hardship is a sign something has gone wrong.</span></p>
-<p class="p9"><span class="s1"></span><br></p>
-<p class="p10"><span class="s2">What I have was not paid to me as a wage — and what I lack was not withheld as one.</span></p>
-<p class="p9"><span class="s1"></span><br></p>
-<p class="p10"><span class="s2">Success and hardship are random; neither says anything about God.</span></p>
-<p class="p9"><span class="s1"></span><br></p>
-<p class="p10"><span class="s2">I'm not sure I could say.</span></p>
-<p class="p7"><span class="s2">QUESTION 3</span></p>
-<p class="p8"><span class="s2">Session 2 made a claim about how people change. Which is closest?</span></p>
-<p class="p9"><span class="s1"></span><br></p>
-<p class="p10"><span class="s2">We change by trying harder and managing our behavior.</span></p>
-<p class="p9"><span class="s1"></span><br></p>
-<p class="p10"><span class="s2">What we keep looking at, we start to look like — change comes from turning toward a different face.</span></p>
-<p class="p9"><span class="s1"></span><br></p>
-<p class="p10"><span class="s2">We change mainly when our circumstances change.</span></p>
-<p class="p9"><span class="s1"></span><br></p>
-<p class="p10"><span class="s2">I'm not sure I could say.</span></p>
-<p class="p7"><span class="s2">QUESTION 4</span></p>
-<p class="p8"><span class="s2">Did the sessions give you words for the season you're actually in?</span></p>
-<p class="p9"><span class="s1"></span><br></p>
-<p class="p10"><span class="s2">Yes — I named my season, and which face of the lie has been speaking to me.</span></p>
-<p class="p9"><span class="s1"></span><br></p>
-<p class="p10"><span class="s2">Partly — I named my season, but the two faces are still blurry to me.</span></p>
-<p class="p9"><span class="s1"></span><br></p>
-<p class="p10"><span class="s2">Not yet — I couldn't quite locate myself.</span></p>
-<p class="p9"><span class="s1"></span><br></p>
-<p class="p10"><span class="s2">I'd rather not say.</span></p>
-<p class="p7"><span class="s2">QUESTION 5</span></p>
-<p class="p8"><span class="s2">When you hear the word <i>flourishing</i> now, which is nearest to what you mean?</span></p>
-<p class="p9"><span class="s1"></span><br></p>
-<p class="p10"><span class="s2">Outcomes — things going well, results coming in.</span></p>
-<p class="p9"><span class="s1"></span><br></p>
-<p class="p10"><span class="s2">Rootedness — staying green even when the season is dry.</span></p>
-<p class="p9"><span class="s1"></span><br></p>
-<p class="p10"><span class="s2">Balance — keeping every area of life even.</span></p>
-<p class="p9"><span class="s1"></span><br></p>
-<p class="p10"><span class="s2">Honestly, the same thing I meant before the sessions.</span></p>
-<p class="p7"><span class="s2">QUESTION 6</span></p>
-<p class="p8"><span class="s2">The eight moments were read twice — the world's read, then grace's read. Were you able to read a moment of your own story that way?</span></p>
-<p class="p11"><span class="s2"><i>Skip if you attended Session 1 only.</i><i></i></span></p>
-<p class="p9"><span class="s1"></span><br></p>
-<p class="p10"><span class="s2">Yes — a specific moment came to mind, and I read it both ways.</span></p>
-<p class="p9"><span class="s1"></span><br></p>
-<p class="p10"><span class="s2">I followed how it works, but haven't turned it on my own story yet.</span></p>
-<p class="p9"><span class="s1"></span><br></p>
-<p class="p10"><span class="s2">The two-line reading didn't quite land for me.</span></p>
-<p class="p7"><span class="s2">QUESTION 7</span></p>
-<p class="p8"><span class="s2">The take-home practice — Recall / Refuse / Receive. Where are you with it?</span></p>
-<p class="p11"><span class="s2"><i>Skip if you attended Session 2 only.</i><i></i></span></p>
-<p class="p9"><span class="s1"></span><br></p>
-<p class="p10"><span class="s2">I've practiced most days since Session 1.</span></p>
-<p class="p9"><span class="s1"></span><br></p>
-<p class="p10"><span class="s2">I've practiced once or twice.</span></p>
-<p class="p9"><span class="s1"></span><br></p>
-<p class="p10"><span class="s2">I intended to, but haven't begun.</span></p>
-<p class="p9"><span class="s1"></span><br></p>
-<p class="p10"><span class="s2">I chose not to take it up.</span></p>
-<p class="p7"><span class="s2">QUESTION 8</span></p>
-<p class="p8"><span class="s2">Did you leave Session 2 with one formation invitation — and do you intend to carry it?</span></p>
-<p class="p11"><span class="s2"><i>Skip if you attended Session 1 only.</i><i></i></span></p>
-<p class="p9"><span class="s1"></span><br></p>
-<p class="p10"><span class="s2">Yes — written down, and I've already taken a first step.</span></p>
-<p class="p9"><span class="s1"></span><br></p>
-<p class="p10"><span class="s2">Yes — written down, and I intend to begin this week.</span></p>
-<p class="p9"><span class="s1"></span><br></p>
-<p class="p10"><span class="s2">I chose one, but didn't write it down.</span></p>
-<p class="p9"><span class="s1"></span><br></p>
-<p class="p10"><span class="s2">I didn't choose one.</span></p>
-<p class="p7"><span class="s2">QUESTION 9</span></p>
-<p class="p8"><span class="s2">The reflection moments asked for honesty. Did the room hold that well?</span></p>
-<p class="p9"><span class="s1"></span><br></p>
-<p class="p10"><span class="s2">I felt held — nothing private was exposed, collected, or compared.</span></p>
-<p class="p9"><span class="s1"></span><br></p>
-<p class="p10"><span class="s2">Mostly held, with a moment or two of discomfort.</span></p>
-<p class="p9"><span class="s1"></span><br></p>
-<p class="p10"><span class="s2">I felt exposed at points.</span></p>
-<p class="p7"><span class="s2">QUESTION 10</span></p>
-<p class="p8"><span class="s2">Across the arc of the sessions, the pace felt:</span></p>
-<p class="p9"><span class="s1"></span><br></p>
-<p class="p10"><span class="s2">Unhurried and right.</span></p>
-<p class="p9"><span class="s1"></span><br></p>
-<p class="p10"><span class="s2">Rushed in places.</span></p>
-<p class="p9"><span class="s1"></span><br></p>
-<p class="p10"><span class="s2">Slow in places.</span></p>
-<p class="p9"><span class="s1"></span><br></p>
-<p class="p10"><span class="s2">Mixed — I'd say more below.</span></p>
-<p class="p7"><span class="s2">QUESTION 11</span></p>
-<p class="p8"><span class="s2">What would you welcome next? </span><span class="s3"><i>(Choose any.)</i><i></i></span></p>
-<p class="p9"><span class="s1"></span><br></p>
-<p class="p10"><span class="s2">Receiving my Hand at Work Portrait (Early Access)</span></p>
-<p class="p9"><span class="s1"></span><br></p>
-<p class="p10"><span class="s2">A simple guide for continuing the practice</span></p>
-<p class="p9"><span class="s1"></span><br></p>
-<p class="p10"><span class="s2">A further session with this group</span></p>
-<p class="p9"><span class="s1"></span><br></p>
-<p class="p10"><span class="s2">A conversation with someone about my season</span></p>
-<p class="p9"><span class="s1"></span><br></p>
-<p class="p10"><span class="s2">Nothing further right now</span></p>
-<p class="p7"><span class="s2">QUESTION 12 — OPTIONAL</span></p>
-<p class="p8"><span class="s2">In your own words — what are you carrying out of these sessions?</span></p>
-<p class="p7"><span class="s2">QUESTION 13 — OPTIONAL</span></p>
-<p class="p8"><span class="s2">Anything that would have made these sessions land better for you?</span></p>
-<p class="p12"><span class="s1">Your response is anonymous — no name, email, or identifying information is collected or stored.</span></p>
-<p class="p13"><span class="s4">Submit my responses</span></p>
+<div class="shell">
+
+  <div class="header">
+    <div class="header-eyebrow">Hand at Work</div>
+    <h1>Missions in the Marketplace</h1>
+    <div class="header-sub">Participant Survey &nbsp;·&nbsp; Anonymous &nbsp;·&nbsp; ~5 minutes</div>
+  </div>
+
+  <div id="survey-state" class="state active">
+
+    <div class="progress-wrap">
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+      <div class="progress-label" id="progress-label">0 of 11 questions answered</div>
+    </div>
+
+    <div class="opening">
+      Thank you for walking these sessions with us. Thirteen quick questions — about five minutes. Nothing here asks what you wrote in the silences, and nothing is shared with your name attached. Every question can be passed.
+    </div>
+
+    <form id="survey-form">
+
+      <!-- Q1 -->
+      <div class="q-card" id="q1">
+        <div class="q-num">Question 1</div>
+        <div class="q-text">Which sessions were you part of?</div>
+        <div class="options" data-name="q1">
+          <label class="option" data-value="Session 1 only">
+            <input type="radio" name="q1" value="Session 1 only">
+            <span class="custom-radio"></span>
+            <span class="option-text">Session 1 only</span>
+          </label>
+          <label class="option" data-value="Session 2 only">
+            <input type="radio" name="q1" value="Session 2 only">
+            <span class="custom-radio"></span>
+            <span class="option-text">Session 2 only</span>
+          </label>
+          <label class="option" data-value="Both sessions">
+            <input type="radio" name="q1" value="Both sessions">
+            <span class="custom-radio"></span>
+            <span class="option-text">Both sessions</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="q-card" id="q2">
+        <div class="q-num">Question 2</div>
+        <div class="q-text">Which line comes closest to the heart of what these sessions taught about success and hardship?</div>
+        <div class="options" data-name="q2">
+          <label class="option" data-value="Success is a reward for faithfulness, and hardship is a sign something has gone wrong.">
+            <input type="radio" name="q2" value="Success is a reward for faithfulness, and hardship is a sign something has gone wrong.">
+            <span class="custom-radio"></span>
+            <span class="option-text">Success is a reward for faithfulness, and hardship is a sign something has gone wrong.</span>
+          </label>
+          <label class="option" data-value="What I have was not paid to me as a wage — and what I lack was not withheld as one.">
+            <input type="radio" name="q2" value="What I have was not paid to me as a wage — and what I lack was not withheld as one.">
+            <span class="custom-radio"></span>
+            <span class="option-text">What I have was not paid to me as a wage — and what I lack was not withheld as one.</span>
+          </label>
+          <label class="option" data-value="Success and hardship are random; neither says anything about God.">
+            <input type="radio" name="q2" value="Success and hardship are random; neither says anything about God.">
+            <span class="custom-radio"></span>
+            <span class="option-text">Success and hardship are random; neither says anything about God.</span>
+          </label>
+          <label class="option" data-value="I'm not sure I could say.">
+            <input type="radio" name="q2" value="I'm not sure I could say.">
+            <span class="custom-radio"></span>
+            <span class="option-text">I'm not sure I could say.</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="q-card" id="q3">
+        <div class="q-num">Question 3</div>
+        <div class="q-text">Session 2 made a claim about how people change. Which is closest?</div>
+        <div class="options" data-name="q3">
+          <label class="option" data-value="We change by trying harder and managing our behavior.">
+            <input type="radio" name="q3" value="We change by trying harder and managing our behavior.">
+            <span class="custom-radio"></span>
+            <span class="option-text">We change by trying harder and managing our behavior.</span>
+          </label>
+          <label class="option" data-value="What we keep looking at, we start to look like — change comes from turning toward a different face.">
+            <input type="radio" name="q3" value="What we keep looking at, we start to look like — change comes from turning toward a different face.">
+            <span class="custom-radio"></span>
+            <span class="option-text">What we keep looking at, we start to look like — change comes from turning toward a different face.</span>
+          </label>
+          <label class="option" data-value="We change mainly when our circumstances change.">
+            <input type="radio" name="q3" value="We change mainly when our circumstances change.">
+            <span class="custom-radio"></span>
+            <span class="option-text">We change mainly when our circumstances change.</span>
+          </label>
+          <label class="option" data-value="I'm not sure I could say.">
+            <input type="radio" name="q3" value="I'm not sure I could say.">
+            <span class="custom-radio"></span>
+            <span class="option-text">I'm not sure I could say.</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="q-card" id="q4">
+        <div class="q-num">Question 4</div>
+        <div class="q-text">Did the sessions give you words for the season you're actually in?</div>
+        <div class="options" data-name="q4">
+          <label class="option" data-value="Yes — I named my season, and which face of the lie has been speaking to me.">
+            <input type="radio" name="q4" value="Yes — I named my season, and which face of the lie has been speaking to me.">
+            <span class="custom-radio"></span>
+            <span class="option-text">Yes — I named my season, and which face of the lie has been speaking to me.</span>
+          </label>
+          <label class="option" data-value="Partly — I named my season, but the two faces are still blurry to me.">
+            <input type="radio" name="q4" value="Partly — I named my season, but the two faces are still blurry to me.">
+            <span class="custom-radio"></span>
+            <span class="option-text">Partly — I named my season, but the two faces are still blurry to me.</span>
+          </label>
+          <label class="option" data-value="Not yet — I couldn't quite locate myself.">
+            <input type="radio" name="q4" value="Not yet — I couldn't quite locate myself.">
+            <span class="custom-radio"></span>
+            <span class="option-text">Not yet — I couldn't quite locate myself.</span>
+          </label>
+          <label class="option" data-value="I'd rather not say.">
+            <input type="radio" name="q4" value="I'd rather not say.">
+            <span class="custom-radio"></span>
+            <span class="option-text">I'd rather not say.</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Q5 (was Q6) -->
+      <div class="q-card" id="q6">
+        <div class="q-num">Question 5</div>
+        <div class="q-text">When you hear the word <em>flourishing</em> now, which is nearest to what you mean?</div>
+        <div class="options" data-name="q6">
+          <label class="option" data-value="Outcomes — things going well, results coming in.">
+            <input type="radio" name="q6" value="Outcomes — things going well, results coming in.">
+            <span class="custom-radio"></span>
+            <span class="option-text">Outcomes — things going well, results coming in.</span>
+          </label>
+          <label class="option" data-value="Rootedness — staying green even when the season is dry.">
+            <input type="radio" name="q6" value="Rootedness — staying green even when the season is dry.">
+            <span class="custom-radio"></span>
+            <span class="option-text">Rootedness — staying green even when the season is dry.</span>
+          </label>
+          <label class="option" data-value="Balance — keeping every area of life even.">
+            <input type="radio" name="q6" value="Balance — keeping every area of life even.">
+            <span class="custom-radio"></span>
+            <span class="option-text">Balance — keeping every area of life even.</span>
+          </label>
+          <label class="option" data-value="Honestly, the same thing I meant before the sessions.">
+            <input type="radio" name="q6" value="Honestly, the same thing I meant before the sessions.">
+            <span class="custom-radio"></span>
+            <span class="option-text">Honestly, the same thing I meant before the sessions.</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Q6 (was Q7) — skip if Session 1 only -->
+      <div class="q-card" id="q7">
+        <div class="q-num">Question 6</div>
+        <div class="q-text">The eight moments were read twice — the world's read, then grace's read. Were you able to read a moment of your own story that way?</div>
+        <div class="q-note">Skip if you attended Session 1 only.</div>
+        <div class="options" data-name="q7">
+          <label class="option" data-value="Yes — a specific moment came to mind, and I read it both ways.">
+            <input type="radio" name="q7" value="Yes — a specific moment came to mind, and I read it both ways.">
+            <span class="custom-radio"></span>
+            <span class="option-text">Yes — a specific moment came to mind, and I read it both ways.</span>
+          </label>
+          <label class="option" data-value="I followed how it works, but haven't turned it on my own story yet.">
+            <input type="radio" name="q7" value="I followed how it works, but haven't turned it on my own story yet.">
+            <span class="custom-radio"></span>
+            <span class="option-text">I followed how it works, but haven't turned it on my own story yet.</span>
+          </label>
+          <label class="option" data-value="The two-line reading didn't quite land for me.">
+            <input type="radio" name="q7" value="The two-line reading didn't quite land for me.">
+            <span class="custom-radio"></span>
+            <span class="option-text">The two-line reading didn't quite land for me.</span>
+          </label>
+          <label class="option" data-value="[Skipped]" id="q7-skip-opt" style="display:none">
+            <input type="radio" name="q7" value="[Skipped]" id="q7-skip-radio">
+            <span class="custom-radio"></span>
+            <span class="option-text">This question doesn't apply to me</span>
+          </label>
+        </div>
+        <div class="skip-notice" id="q7-skip-notice">This question is for Session 2 / Both attendees. It will be skipped automatically.</div>
+      </div>
+
+      <!-- Q7 (was Q8) — skip if Session 2 only -->
+      <div class="q-card" id="q8">
+        <div class="q-num">Question 7</div>
+        <div class="q-text">The take-home practice — Recall / Refuse / Receive. Where are you with it?</div>
+        <div class="q-note">Skip if you attended Session 2 only.</div>
+        <div class="options" data-name="q8">
+          <label class="option" data-value="I've practiced most days since Session 1.">
+            <input type="radio" name="q8" value="I've practiced most days since Session 1.">
+            <span class="custom-radio"></span>
+            <span class="option-text">I've practiced most days since Session 1.</span>
+          </label>
+          <label class="option" data-value="I've practiced once or twice.">
+            <input type="radio" name="q8" value="I've practiced once or twice.">
+            <span class="custom-radio"></span>
+            <span class="option-text">I've practiced once or twice.</span>
+          </label>
+          <label class="option" data-value="I intended to, but haven't begun.">
+            <input type="radio" name="q8" value="I intended to, but haven't begun.">
+            <span class="custom-radio"></span>
+            <span class="option-text">I intended to, but haven't begun.</span>
+          </label>
+          <label class="option" data-value="I chose not to take it up.">
+            <input type="radio" name="q8" value="I chose not to take it up.">
+            <span class="custom-radio"></span>
+            <span class="option-text">I chose not to take it up.</span>
+          </label>
+          <label class="option" data-value="[Skipped]" id="q8-skip-opt" style="display:none">
+            <input type="radio" name="q8" value="[Skipped]" id="q8-skip-radio">
+            <span class="custom-radio"></span>
+            <span class="option-text">This question doesn't apply to me</span>
+          </label>
+        </div>
+        <div class="skip-notice" id="q8-skip-notice">This question is for Session 1 / Both attendees. It will be skipped automatically.</div>
+      </div>
+
+      <!-- Q8 (was Q9) — skip if Session 1 only -->
+      <div class="q-card" id="q9">
+        <div class="q-num">Question 8</div>
+        <div class="q-text">Did you leave Session 2 with one formation invitation — and do you intend to carry it?</div>
+        <div class="q-note">Skip if you attended Session 1 only.</div>
+        <div class="options" data-name="q9">
+          <label class="option" data-value="Yes — written down, and I've already taken a first step.">
+            <input type="radio" name="q9" value="Yes — written down, and I've already taken a first step.">
+            <span class="custom-radio"></span>
+            <span class="option-text">Yes — written down, and I've already taken a first step.</span>
+          </label>
+          <label class="option" data-value="Yes — written down, and I intend to begin this week.">
+            <input type="radio" name="q9" value="Yes — written down, and I intend to begin this week.">
+            <span class="custom-radio"></span>
+            <span class="option-text">Yes — written down, and I intend to begin this week.</span>
+          </label>
+          <label class="option" data-value="I chose one, but didn't write it down.">
+            <input type="radio" name="q9" value="I chose one, but didn't write it down.">
+            <span class="custom-radio"></span>
+            <span class="option-text">I chose one, but didn't write it down.</span>
+          </label>
+          <label class="option" data-value="I didn't choose one.">
+            <input type="radio" name="q9" value="I didn't choose one.">
+            <span class="custom-radio"></span>
+            <span class="option-text">I didn't choose one.</span>
+          </label>
+          <label class="option" data-value="[Skipped]" id="q9-skip-opt" style="display:none">
+            <input type="radio" name="q9" value="[Skipped]" id="q9-skip-radio">
+            <span class="custom-radio"></span>
+            <span class="option-text">This question doesn't apply to me</span>
+          </label>
+        </div>
+        <div class="skip-notice" id="q9-skip-notice">This question is for Session 2 / Both attendees. It will be skipped automatically.</div>
+      </div>
+
+      <!-- Q9 (was Q10) -->
+      <div class="q-card" id="q10">
+        <div class="q-num">Question 9</div>
+        <div class="q-text">The reflection moments asked for honesty. Did the room hold that well?</div>
+        <div class="options" data-name="q10">
+          <label class="option" data-value="I felt held — nothing private was exposed, collected, or compared.">
+            <input type="radio" name="q10" value="I felt held — nothing private was exposed, collected, or compared.">
+            <span class="custom-radio"></span>
+            <span class="option-text">I felt held — nothing private was exposed, collected, or compared.</span>
+          </label>
+          <label class="option" data-value="Mostly held, with a moment or two of discomfort.">
+            <input type="radio" name="q10" value="Mostly held, with a moment or two of discomfort.">
+            <span class="custom-radio"></span>
+            <span class="option-text">Mostly held, with a moment or two of discomfort.</span>
+          </label>
+          <label class="option" data-value="I felt exposed at points.">
+            <input type="radio" name="q10" value="I felt exposed at points.">
+            <span class="custom-radio"></span>
+            <span class="option-text">I felt exposed at points.</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Q10 (was Q11) -->
+      <div class="q-card" id="q11">
+        <div class="q-num">Question 10</div>
+        <div class="q-text">Across the arc of the sessions, the pace felt:</div>
+        <div class="options" data-name="q11">
+          <label class="option" data-value="Unhurried and right.">
+            <input type="radio" name="q11" value="Unhurried and right.">
+            <span class="custom-radio"></span>
+            <span class="option-text">Unhurried and right.</span>
+          </label>
+          <label class="option" data-value="Rushed in places.">
+            <input type="radio" name="q11" value="Rushed in places.">
+            <span class="custom-radio"></span>
+            <span class="option-text">Rushed in places.</span>
+          </label>
+          <label class="option" data-value="Slow in places.">
+            <input type="radio" name="q11" value="Slow in places.">
+            <span class="custom-radio"></span>
+            <span class="option-text">Slow in places.</span>
+          </label>
+          <label class="option" data-value="Mixed — I'd say more below.">
+            <input type="radio" name="q11" value="Mixed — I'd say more below.">
+            <span class="custom-radio"></span>
+            <span class="option-text">Mixed — I'd say more below.</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Q11 (was Q12) — multi-select -->
+      <div class="q-card" id="q12">
+        <div class="q-num">Question 11</div>
+        <div class="q-text">What would you welcome next? <em style="font-size:13px; color: var(--muted);">(Choose any.)</em></div>
+        <div class="options" data-name="q12" data-multi="true">
+          <label class="option" data-value="Receiving my Hand at Work Portrait (Early Access)">
+            <input type="checkbox" name="q12" value="Receiving my Hand at Work Portrait (Early Access)">
+            <span class="custom-checkbox"></span>
+            <span class="option-text">Receiving my Hand at Work Portrait (Early Access)</span>
+          </label>
+          <label class="option" data-value="A simple guide for continuing the practice">
+            <input type="checkbox" name="q12" value="A simple guide for continuing the practice">
+            <span class="custom-checkbox"></span>
+            <span class="option-text">A simple guide for continuing the practice</span>
+          </label>
+          <label class="option" data-value="A further session with this group">
+            <input type="checkbox" name="q12" value="A further session with this group">
+            <span class="custom-checkbox"></span>
+            <span class="option-text">A further session with this group</span>
+          </label>
+          <label class="option" data-value="A conversation with someone about my season">
+            <input type="checkbox" name="q12" value="A conversation with someone about my season">
+            <span class="custom-checkbox"></span>
+            <span class="option-text">A conversation with someone about my season</span>
+          </label>
+          <label class="option" data-value="Nothing further right now">
+            <input type="checkbox" name="q12" value="Nothing further right now">
+            <span class="custom-checkbox"></span>
+            <span class="option-text">Nothing further right now</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Q12 (was Q13) — optional open text -->
+      <div class="q-card" id="q13">
+        <div class="q-num">Question 12 — Optional</div>
+        <div class="q-text">In your own words — what are you carrying out of these sessions?</div>
+        <textarea class="q-textarea" name="q13" placeholder="One sentence, or as many as you'd like…" rows="3"></textarea>
+      </div>
+
+      <!-- Q13 (was Q14) — optional open text -->
+      <div class="q-card" id="q14">
+        <div class="q-num">Question 13 — Optional</div>
+        <div class="q-text">Anything that would have made these sessions land better for you?</div>
+        <textarea class="q-textarea" name="q14" placeholder="Your honest feedback is welcome here." rows="3"></textarea>
+      </div>
+
+      <div class="submit-section">
+        <p class="submit-note">Your response is anonymous — no name, email, or identifying information is collected or stored.</p>
+        <button type="submit" class="btn-submit" id="submit-btn">
+          <span id="submit-label">Submit my responses</span>
+        </button>
+        <div class="error-msg" id="error-msg">
+          Something didn't go through. Please try again, or let the facilitator know if this keeps happening.
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+  <div id="thankyou-state" class="state">
+    <div class="thankyou">
+      <div class="thankyou-icon">✦</div>
+      <h2>Thank you.</h2>
+      <p>Your honesty here is held the same way it was in the room.</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzPtS6PaUdLdiFatyBS88FPLKLEcjjytleUu7zWAcRxQznkFjh4q1UkwA-WEfo0_Dty/exec';
+
+const form = document.getElementById('survey-form');
+const progressFill = document.getElementById('progress-fill');
+const progressLabel = document.getElementById('progress-label');
+
+// Skip logic: Q7/Q9 hidden for Session 1 only; Q8 hidden for Session 2 only
+function applySkipLogic(q1val) {
+  const s1only = q1val === 'Session 1 only';
+  const s2only = q1val === 'Session 2 only';
+
+  ['q7', 'q9'].forEach(id => {
+    const notice = document.getElementById(id + '-skip-notice');
+    const skipOpt = document.getElementById(id + '-skip-opt');
+    const skipRadio = document.getElementById(id + '-skip-radio');
+    if (s1only) {
+      notice.style.display = 'block';
+      skipOpt.style.display = 'flex';
+      skipRadio.checked = true;
+      skipOpt.classList.add('selected');
+    } else {
+      notice.style.display = 'none';
+      skipOpt.style.display = 'none';
+      if (skipRadio.checked) { skipRadio.checked = false; skipOpt.classList.remove('selected'); }
+    }
+  });
+
+  const q8notice = document.getElementById('q8-skip-notice');
+  const q8skipOpt = document.getElementById('q8-skip-opt');
+  const q8skipRadio = document.getElementById('q8-skip-radio');
+  if (s2only) {
+    q8notice.style.display = 'block';
+    q8skipOpt.style.display = 'flex';
+    q8skipRadio.checked = true;
+    q8skipOpt.classList.add('selected');
+  } else {
+    q8notice.style.display = 'none';
+    q8skipOpt.style.display = 'none';
+    if (q8skipRadio.checked) { q8skipRadio.checked = false; q8skipOpt.classList.remove('selected'); }
+  }
+
+  updateProgress();
+}
+
+// Option click handling
+document.querySelectorAll('.options').forEach(group => {
+  const isMulti = group.dataset.multi === 'true';
+  group.querySelectorAll('.option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      const input = opt.querySelector('input');
+      if (isMulti) {
+        input.checked = !input.checked;
+        opt.classList.toggle('selected', input.checked);
+      } else {
+        group.querySelectorAll('.option').forEach(o => {
+          o.classList.remove('selected');
+          o.querySelector('input').checked = false;
+        });
+        input.checked = true;
+        opt.classList.add('selected');
+        if (group.dataset.name === 'q1') applySkipLogic(input.value);
+        opt.closest('.q-card').classList.add('answered');
+      }
+      updateProgress();
+    });
+  });
+});
+
+document.querySelectorAll('.q-textarea').forEach(ta => ta.addEventListener('input', updateProgress));
+
+function getRadioValue(name) {
+  const el = form.querySelector('input[name="' + name + '"]:checked');
+  return el ? el.value : null;
+}
+
+function isAnswered(n) {
+  if (n === 12) return document.querySelectorAll('input[name="q12"]:checked').length > 0;
+  if (n === 13 || n === 14) return false; // optional, don't count
+  return !!getRadioValue('q' + n);
+}
+
+function countAnswered() {
+  const q1val = getRadioValue('q1');
+  const s1only = q1val === 'Session 1 only';
+  const s2only = q1val === 'Session 2 only';
+  let total = 0, answered = 0;
+
+  // Questions with internal names q1-q4, q6-q12 (q5 removed)
+  const qNums = [1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12];
+  qNums.forEach(i => {
+    if ((i === 7 || i === 9) && s1only) return;
+    if (i === 8 && s2only) return;
+    total++;
+    if (isAnswered(i)) answered++;
+  });
+  return { total, answered };
+}
+
+function updateProgress() {
+  const { total, answered } = countAnswered();
+  const pct = total > 0 ? Math.round((answered / total) * 100) : 0;
+  progressFill.style.width = pct + '%';
+  progressLabel.textContent = answered + ' of ' + total + ' questions answered';
+}
+
+// Form submission
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('submit-btn');
+  const label = document.getElementById('submit-label');
+  const errMsg = document.getElementById('error-msg');
+  errMsg.classList.remove('visible');
+
+  const data = {
+    timestamp: new Date().toISOString(),
+    q1:  getRadioValue('q1')  || '',
+    q2:  getRadioValue('q2')  || '',
+    q3:  getRadioValue('q3')  || '',
+    q4:  getRadioValue('q4')  || '',
+    q6:  getRadioValue('q6')  || '',
+    q7:  getRadioValue('q7')  || '',
+    q8:  getRadioValue('q8')  || '',
+    q9:  getRadioValue('q9')  || '',
+    q10: getRadioValue('q10') || '',
+    q11: getRadioValue('q11') || '',
+    q12: Array.from(document.querySelectorAll('input[name="q12"]:checked')).map(cb => cb.value).join('; '),
+    q13: form.querySelector('textarea[name="q13"]').value.trim(),
+    q14: form.querySelector('textarea[name="q14"]').value.trim(),
+  };
+
+  btn.disabled = true;
+  label.innerHTML = '';
+  const spinner = document.createElement('span');
+  spinner.className = 'spinner';
+  btn.appendChild(spinner);
+
+  try {
+    await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    showThankYou();
+  } catch (err) {
+    btn.disabled = false;
+    spinner.remove();
+    label.textContent = 'Submit my responses';
+    errMsg.classList.add('visible');
+  }
+});
+
+function showThankYou() {
+  document.getElementById('survey-state').classList.remove('active');
+  document.getElementById('thankyou-state').classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+updateProgress();
+</script>
 </body>
 </html>
